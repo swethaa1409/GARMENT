@@ -1,0 +1,9 @@
+/* ==========================================================================
+   Production page specific styles
+   ========================================================================== */
+
+.progress-cell { display: flex; align-items: center; gap: 10px; }
+.progress-cell .progress-track { flex: 1; }
+.progress-pct { font-size: 11.5px; font-weight: 600; color: var(--text-secondary); min-width: 34px; text-align: right; }
+.progress-fill.behind { background: linear-gradient(90deg, var(--danger), var(--thread-red)); }
+.progress-fill.close { background: linear-gradient(90deg, var(--warning), var(--amber-500)); }

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In — AI Garment Management System</title>
+<meta name="description" content="Sign in to the AI Garment Management System. Manage orders, workers, production, payments and delivery from one intelligent platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<div class="auth-wrap">
+
+  <!-- Left showcase panel — garment factory hero -->
+  <div class="auth-showcase">
+    <div class="showcase-overlay"></div>
+
+    <div class="showcase-content">
+
+      <!-- Branding -->
+      <div class="showcase-brand">
+        <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+        <div class="brand-text">
+          <span class="brand-ai">AI</span> <span class="brand-name">GARMENT</span>
+          <span class="brand-sub">MANAGEMENT SYSTEM</span>
+        </div>
+      </div>
+
+      <!-- Headline -->
+      <h1>Smarter production.<br><span class="headline-accent">Better decisions.</span><br>On-time delivery.</h1>
+      <p class="showcase-desc">Manage orders, workers, production, payments and delivery from one intelligent platform.</p>
+
+      <!-- Feature list -->
+      <ul class="showcase-features">
+        <li><span class="feature-check"><i class="fa-solid fa-check"></i></span> Real-time production tracking</li>
+        <li><span class="feature-check"><i class="fa-solid fa-check"></i></span> Smart worker allocation</li>
+        <li><span class="feature-check"><i class="fa-solid fa-check"></i></span> AI-driven delay prediction</li>
+        <li><span class="feature-check"><i class="fa-solid fa-check"></i></span> Profit and cost management</li>
+      </ul>
+
+    </div>
+
+    <!-- Floating AI overlay cards -->
+    <div class="ai-card ai-card-1">
+      <div class="ai-card-header">
+        <div class="ai-card-icon ai-card-icon--production"><i class="fa-solid fa-boxes-stacked"></i></div>
+        <span class="ai-card-label">ORDER #1042</span>
+      </div>
+      <div class="ai-card-detail">Shirts — 1,200 pcs</div>
+      <div class="ai-card-stat">82% Complete</div>
+      <div class="ai-progress-track"><div class="ai-progress-fill" style="width:82%"></div></div>
+    </div>
+
+    <div class="ai-card ai-card-2">
+      <div class="ai-card-header">
+        <div class="ai-card-icon ai-card-icon--workers"><i class="fa-solid fa-users"></i></div>
+        <span class="ai-card-label">12 WORKERS</span>
+      </div>
+      <div class="ai-card-detail">Active Today</div>
+      <div class="ai-card-delta"><i class="fa-solid fa-arrow-trend-up"></i> +8% productivity</div>
+    </div>
+
+    <div class="ai-card ai-card-3">
+      <div class="ai-card-header">
+        <div class="ai-card-icon ai-card-icon--alert"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <span class="ai-card-label ai-card-label--alert">AI ALERT</span>
+      </div>
+      <div class="ai-card-detail">Order #105</div>
+      <div class="ai-card-alert-text">Delay risk detected</div>
+      <div class="ai-card-pulse"></div>
+    </div>
+
+    <!-- Bottom stats bar -->
+    <div class="stats-bar">
+      <div class="stats-bar-label">PLATFORM CAPABILITIES</div>
+      <div class="stats-bar-items">
+        <div class="stat-item">
+          <span class="stat-value">500+</span>
+          <span class="stat-name">Orders Managed</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">120+</span>
+          <span class="stat-name">Workers Connected</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">99%</span>
+          <span class="stat-name">On-time Delivery</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value">30%</span>
+          <span class="stat-name">Higher Efficiency</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right auth panel -->
+  <div class="auth-panel">
+    <div class="auth-card glass" id="authCard">
+
+      <div class="auth-tabs">
+        <button class="tab-btn active" data-tab="login" id="tabLoginBtn">Sign In</button>
+        <button class="tab-btn" data-tab="register" id="tabRegisterBtn">Create Account</button>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" class="auth-form active" novalidate>
+        <h2>Welcome back</h2>
+        <p class="sub">Sign in to manage your garment operations.</p>
+
+        <div class="field">
+          <label for="loginEmail">Email address</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="loginEmail" placeholder="you@company.com" autocomplete="email" required>
+          </div>
+          <span class="error-msg" id="loginEmailError"></span>
+        </div>
+
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required>
+            <button type="button" class="toggle-eye" data-target="loginPassword"><i class="fa-solid fa-eye"></i></button>
+          </div>
+          <span class="error-msg" id="loginPasswordError"></span>
+        </div>
+
+        <div class="field-row">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberMe"> Remember me
+          </label>
+          <a href="#" class="demo-shortcut" id="demoFillBtn"><i class="fa-solid fa-bolt"></i> Use demo login</a>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Sign In</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <p class="switch-line">Don't have an account? <a href="#" data-switch="register">Create one</a></p>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="registerForm" class="auth-form" novalidate>
+        <h2>Create your account</h2>
+        <p class="sub">Set up access to the management dashboard.</p>
+
+        <div class="field">
+          <label for="regName">Full name</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-user"></i>
+            <input type="text" id="regName" placeholder="Jordan Fields" required>
+          </div>
+          <span class="error-msg" id="regNameError"></span>
+        </div>
+
+        <div class="field">
+          <label for="regEmail">Email address</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-envelope"></i>
+            <input type="email" id="regEmail" placeholder="you@company.com" required>
+          </div>
+          <span class="error-msg" id="regEmailError"></span>
+        </div>
+
+        <div class="field">
+          <label for="regPassword">Password</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="regPassword" placeholder="Minimum 6 characters" required>
+            <button type="button" class="toggle-eye" data-target="regPassword"><i class="fa-solid fa-eye"></i></button>
+          </div>
+          <span class="error-msg" id="regPasswordError"></span>
+        </div>
+
+        <div class="field">
+          <label for="regConfirm">Confirm password</label>
+          <div class="input-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="regConfirm" placeholder="Re-enter password" required>
+            <button type="button" class="toggle-eye" data-target="regConfirm"><i class="fa-solid fa-eye"></i></button>
+          </div>
+          <span class="error-msg" id="regConfirmError"></span>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Create Account</span>
+          <i class="fa-solid fa-user-plus"></i>
+        </button>
+
+        <p class="switch-line">Already have an account? <a href="#" data-switch="login">Sign in</a></p>
+      </form>
+
+    </div>
+
+    <!-- Demo credentials footer -->
+    <div class="demo-footer">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>Demo access available &mdash; <strong>admin@agms.com</strong> / <strong>admin123</strong></span>
+    </div>
+
+    <p class="footnote">Demo credentials — admin@agms.com / admin123</p>
+  </div>
+
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

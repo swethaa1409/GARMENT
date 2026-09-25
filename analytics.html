@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Analytics — AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/analytics.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text"><strong>AI Garment MS</strong><span>Production Suite</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>Main</span></div>
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="orders.html" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span>Orders</span></a>
+      <a href="workers.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Workers</span></a>
+      <a href="production.html" class="nav-link"><i class="fa-solid fa-industry"></i><span>Production</span></a>
+      <a href="payments.html" class="nav-link"><i class="fa-solid fa-money-check-dollar"></i><span>Payments</span></a>
+      <a href="analytics.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>AI Analytics</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" data-logout><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>AI Analytics</h1>
+          <p>Revenue, production &amp; worker performance insights</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="dashboard.html" class="back-dashboard-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+        <button class="icon-btn" id="darkModeToggle"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" data-user-avatar>A</div>
+          <div><span class="u-name" data-user-name>Admin</span><span class="u-role">Administrator</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <div class="ai-insight-banner">
+        <div class="ai-icon-lg"><i class="fa-solid fa-microchip"></i></div>
+        <div>
+          <strong>AI Summary</strong>
+          <p id="aiSummaryText">Analyzing your operations…</p>
+        </div>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="card panel chart-card">
+          <div class="panel-head">
+            <h3>Revenue Analysis</h3>
+            <span class="muted">Last 6 months</span>
+          </div>
+          <div class="chart-holder"><canvas id="revenueChart"></canvas></div>
+        </div>
+
+        <div class="card panel chart-card">
+          <div class="panel-head">
+            <h3>Production Analysis</h3>
+            <span class="muted">Target vs completed</span>
+          </div>
+          <div class="chart-holder"><canvas id="productionChart"></canvas></div>
+        </div>
+
+        <div class="card panel chart-card">
+          <div class="panel-head">
+            <h3>Worker Performance</h3>
+            <span class="muted">By department output share</span>
+          </div>
+          <div class="chart-holder"><canvas id="workerChart"></canvas></div>
+        </div>
+
+        <div class="card panel chart-card">
+          <div class="panel-head">
+            <h3>Order Status Split</h3>
+            <span class="muted">Current pipeline</span>
+          </div>
+          <div class="chart-holder"><canvas id="orderStatusChart"></canvas></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/analytics.js"></script>
+</body>
+</html>

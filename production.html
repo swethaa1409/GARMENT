@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production — AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/production.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text"><strong>AI Garment MS</strong><span>Production Suite</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>Main</span></div>
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="orders.html" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span>Orders</span></a>
+      <a href="workers.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Workers</span></a>
+      <a href="production.html" class="nav-link"><i class="fa-solid fa-industry"></i><span>Production</span></a>
+      <a href="payments.html" class="nav-link"><i class="fa-solid fa-money-check-dollar"></i><span>Payments</span></a>
+      <a href="analytics.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>AI Analytics</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" data-logout><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Production</h1>
+          <p>Daily output tracking against targets</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="dashboard.html" class="back-dashboard-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+        <button class="icon-btn" id="darkModeToggle"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" data-user-avatar>A</div>
+          <div><span class="u-name" data-user-name>Admin</span><span class="u-role">Administrator</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <div class="stat-grid" id="prodStatGrid">
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Today's Target</span>
+            <h2 id="statTarget">0</h2>
+            <span class="delta up">units planned</span>
+          </div>
+          <div class="stat-icon bg-indigo"><i class="fa-solid fa-bullseye"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Today's Completed</span>
+            <h2 id="statCompletedToday">0</h2>
+            <span class="delta up">units produced</span>
+          </div>
+          <div class="stat-icon bg-green"><i class="fa-solid fa-industry"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Weekly Average</span>
+            <h2 id="statWeeklyAvg">0%</h2>
+            <span class="delta up">of target hit</span>
+          </div>
+          <div class="stat-icon bg-amber"><i class="fa-solid fa-chart-simple"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Logged Entries</span>
+            <h2 id="statEntries">0</h2>
+            <span class="delta up">total records</span>
+          </div>
+          <div class="stat-icon bg-red"><i class="fa-solid fa-list-check"></i></div>
+        </div>
+      </div>
+
+      <div class="card panel">
+        <div class="panel-head">
+          <h3>Production Log</h3>
+          <button class="btn btn-primary" id="addProductionBtn"><i class="fa-solid fa-plus"></i> Log Production</button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Date</th><th>Department</th><th>Target</th><th>Completed</th><th style="min-width:160px;">Progress</th><th class="text-right">Actions</th></tr>
+            </thead>
+            <tbody id="productionBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="productionModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="productionModalTitle">Log Production</h3>
+      <button class="modal-close" id="closeProductionModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="productionForm">
+      <input type="hidden" id="productionEditId">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="productionDate">Date</label>
+          <input type="date" id="productionDate" required>
+        </div>
+        <div class="form-group">
+          <label for="productionDept">Department</label>
+          <select id="productionDept" required>
+            <option value="Cutting">Cutting</option>
+            <option value="Stitching">Stitching</option>
+            <option value="Quality Check">Quality Check</option>
+            <option value="Packing">Packing</option>
+            <option value="Dyeing">Dyeing</option>
+            <option value="Finishing">Finishing</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="productionTarget">Target units</label>
+          <input type="number" id="productionTarget" min="1" placeholder="e.g. 200" required>
+        </div>
+        <div class="form-group">
+          <label for="productionCompleted">Completed units</label>
+          <input type="number" id="productionCompleted" min="0" placeholder="e.g. 160" required>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="cancelProductionForm">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveProductionBtn"><i class="fa-solid fa-floppy-disk"></i> Save Entry</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/production.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+/* ==========================================================================
+   Workers page specific styles
+   ========================================================================== */
+
+.worker-name-cell { display: flex; align-items: center; gap: 10px; }
+.worker-avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--indigo-500), var(--amber-500));
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 600; flex-shrink: 0;
+}
+.dept-tag {
+  display: inline-block; padding: 4px 11px; border-radius: 30px;
+  background: rgba(74,95,217,0.1); color: var(--indigo-600); font-size: 11.5px; font-weight: 600;
+}
+[data-theme="dark"] .dept-tag { color: var(--indigo-400); }
+
+@media (max-width: 640px) {
+  .panel-head { flex-direction: column; align-items: stretch; }
+  .search-bar { max-width: none; }
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payments — AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/payments.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text"><strong>AI Garment MS</strong><span>Production Suite</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>Main</span></div>
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="orders.html" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span>Orders</span></a>
+      <a href="workers.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Workers</span></a>
+      <a href="production.html" class="nav-link"><i class="fa-solid fa-industry"></i><span>Production</span></a>
+      <a href="payments.html" class="nav-link"><i class="fa-solid fa-money-check-dollar"></i><span>Payments</span></a>
+      <a href="analytics.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>AI Analytics</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" data-logout><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Payments</h1>
+          <p>Worker salaries &amp; payment status</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="dashboard.html" class="back-dashboard-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+        <button class="icon-btn" id="darkModeToggle"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" data-user-avatar>A</div>
+          <div><span class="u-name" data-user-name>Admin</span><span class="u-role">Administrator</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <div class="stat-grid" id="payStatGrid">
+        <div class="card stat-card">
+          <div class="stat-info"><span class="label">Total Payroll</span><h2 id="statTotalPayroll">₹0</h2><span class="delta up">all records</span></div>
+          <div class="stat-icon bg-indigo"><i class="fa-solid fa-sack-dollar"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info"><span class="label">Paid</span><h2 id="statPaid">₹0</h2><span class="delta up">settled</span></div>
+          <div class="stat-icon bg-green"><i class="fa-solid fa-circle-check"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info"><span class="label">Pending</span><h2 id="statPending">₹0</h2><span class="delta down">to clear</span></div>
+          <div class="stat-icon bg-amber"><i class="fa-solid fa-hourglass-half"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info"><span class="label">Records</span><h2 id="statRecords">0</h2><span class="delta up">total entries</span></div>
+          <div class="stat-icon bg-red"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+        </div>
+      </div>
+
+      <div class="card panel">
+        <div class="panel-head">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="paymentSearch" placeholder="Search by worker name…">
+          </div>
+          <div class="flex-between gap-10">
+            <select id="paymentStatusFilter" class="filter-select">
+              <option value="">All statuses</option>
+              <option value="Paid">Paid</option>
+              <option value="Pending">Pending</option>
+            </select>
+            <button class="btn btn-primary" id="addPaymentBtn"><i class="fa-solid fa-plus"></i> Add Payment</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Payment ID</th><th>Worker</th><th>Amount</th><th>Status</th><th>Date</th><th class="text-right">Actions</th></tr>
+            </thead>
+            <tbody id="paymentsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="paymentModalTitle">Add Payment</h3>
+      <button class="modal-close" id="closePaymentModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="paymentForm">
+      <input type="hidden" id="paymentEditId">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="paymentWorker">Worker</label>
+          <select id="paymentWorker" required></select>
+        </div>
+        <div class="form-group">
+          <label for="paymentAmount">Amount (₹)</label>
+          <input type="number" id="paymentAmount" min="0" placeholder="e.g. 15000" required>
+        </div>
+        <div class="form-group">
+          <label for="paymentStatus">Status</label>
+          <select id="paymentStatus" required>
+            <option value="Pending">Pending</option>
+            <option value="Paid">Paid</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="paymentDate">Payment date</label>
+          <input type="date" id="paymentDate" required>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="cancelPaymentForm">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="savePaymentBtn"><i class="fa-solid fa-floppy-disk"></i> Save Payment</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/payments.js"></script>
+</body>
+</html>

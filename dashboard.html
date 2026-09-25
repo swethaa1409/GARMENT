@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text"><strong>AI Garment MS</strong><span>Production Suite</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>Main</span></div>
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="orders.html" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span>Orders</span></a>
+      <a href="workers.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Workers</span></a>
+      <a href="production.html" class="nav-link"><i class="fa-solid fa-industry"></i><span>Production</span></a>
+      <a href="payments.html" class="nav-link"><i class="fa-solid fa-money-check-dollar"></i><span>Payments</span></a>
+      <a href="analytics.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>AI Analytics</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" data-logout><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Overview</h1>
+          <p>Everything happening on the floor today</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="darkModeToggle"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" data-user-avatar>A</div>
+          <div>
+            <span class="u-name" data-user-name>Admin</span>
+            <span class="u-role">Administrator</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <div class="welcome-banner">
+        <div>
+          <h2>Welcome back, <span data-user-name>Admin</span> 👋</h2>
+          <p>Here's what's happening at your garment unit today, <span id="todayDate"></span>.</p>
+        </div>
+        <a href="orders.html" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Order</a>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stat-grid" id="statGrid">
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Total Orders</span>
+            <h2 id="statOrders">0</h2>
+            <span class="delta up"><i class="fa-solid fa-arrow-up"></i> Live count</span>
+          </div>
+          <div class="stat-icon bg-indigo"><i class="fa-solid fa-cart-shopping"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Workers</span>
+            <h2 id="statWorkers">0</h2>
+            <span class="delta up"><i class="fa-solid fa-arrow-up"></i> Active team</span>
+          </div>
+          <div class="stat-icon bg-amber"><i class="fa-solid fa-users"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Completed Orders</span>
+            <h2 id="statCompleted">0</h2>
+            <span class="delta up"><i class="fa-solid fa-check"></i> Fulfilled</span>
+          </div>
+          <div class="stat-icon bg-green"><i class="fa-solid fa-box-check"></i></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-info">
+            <span class="label">Revenue</span>
+            <h2 id="statRevenue">₹0</h2>
+            <span class="delta up"><i class="fa-solid fa-arrow-up"></i> Est. this month</span>
+          </div>
+          <div class="stat-icon bg-red"><i class="fa-solid fa-sack-dollar"></i></div>
+        </div>
+      </div>
+
+      <div class="dash-columns">
+        <!-- Recent Orders -->
+        <div class="card panel">
+          <div class="panel-head">
+            <h3>Recent Orders</h3>
+            <a href="orders.html" class="link-view-all">View all <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr><th>Order ID</th><th>Product</th><th>Qty</th><th>Status</th><th>Delivery</th></tr>
+              </thead>
+              <tbody id="recentOrdersBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- AI Alerts -->
+        <div class="card panel">
+          <div class="panel-head">
+            <h3><i class="fa-solid fa-microchip" style="color:var(--indigo-500);margin-right:6px;"></i>AI Alerts</h3>
+            <span class="muted" id="alertCount">0 active</span>
+          </div>
+          <div id="aiAlertsHost"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

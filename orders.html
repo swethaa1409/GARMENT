@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders — AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/orders.css">
+</head>
+<body>
+
+<div class="app-shell">
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text"><strong>AI Garment MS</strong><span>Production Suite</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>Main</span></div>
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="orders.html" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span>Orders</span></a>
+      <a href="workers.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Workers</span></a>
+      <a href="production.html" class="nav-link"><i class="fa-solid fa-industry"></i><span>Production</span></a>
+      <a href="payments.html" class="nav-link"><i class="fa-solid fa-money-check-dollar"></i><span>Payments</span></a>
+      <a href="analytics.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>AI Analytics</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" data-logout><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Orders</h1>
+          <p>Manage customer &amp; production orders</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a href="dashboard.html" class="back-dashboard-btn"><i class="fa-solid fa-arrow-left"></i> Dashboard</a>
+        <button class="icon-btn" id="darkModeToggle"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" data-user-avatar>A</div>
+          <div><span class="u-name" data-user-name>Admin</span><span class="u-role">Administrator</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <div class="card panel">
+        <div class="panel-head">
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="orderSearch" placeholder="Search by ID, product or status…">
+          </div>
+          <div class="flex-between gap-10">
+            <select id="statusFilter" class="filter-select">
+              <option value="">All statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+            <button class="btn btn-primary" id="addOrderBtn"><i class="fa-solid fa-plus"></i> Add Order</button>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr><th>Order ID</th><th>Product</th><th>Quantity</th><th>Status</th><th>Delivery Date</th><th>Created</th><th class="text-right">Actions</th></tr>
+            </thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Add / Edit Modal -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="orderModalTitle">Add New Order</h3>
+      <button class="modal-close" id="closeOrderModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <form id="orderForm">
+      <input type="hidden" id="orderEditId">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="orderProduct">Product name</label>
+          <input type="text" id="orderProduct" placeholder="e.g. Cotton Kurta - Blue" required>
+        </div>
+        <div class="form-group">
+          <label for="orderQty">Quantity</label>
+          <input type="number" id="orderQty" min="1" placeholder="e.g. 200" required>
+        </div>
+        <div class="form-group">
+          <label for="orderStatus">Status</label>
+          <select id="orderStatus" required>
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="orderDelivery">Delivery date</label>
+          <input type="date" id="orderDelivery" required>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="cancelOrderForm">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="saveOrderBtn"><i class="fa-solid fa-floppy-disk"></i> Save Order</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- View Modal -->
+<div class="modal-overlay" id="viewOrderModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3>Order Details</h3>
+      <button class="modal-close" id="closeViewOrderModal"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="orderViewBody"></div>
+  </div>
+</div>
+
+<script src="js/utils.js"></script>
+<script src="js/orders.js"></script>
+</body>
+</html>

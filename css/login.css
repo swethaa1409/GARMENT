@@ -660,6 +660,57 @@ html, body {
 /* Hide legacy footnote element */
 .footnote { display: none; }
 
+/* ---- Role selector ---- */
+.role-selector { margin-bottom: 20px; }
+.role-selector-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.8px;
+  text-transform: uppercase; color: var(--text-muted);
+  margin: 0 0 10px;
+}
+.role-cards {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+}
+.role-card {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 12px; border-radius: 12px;
+  border: 1.5px solid var(--border-light);
+  background: #F7F8FC;
+  cursor: pointer; text-align: left;
+  transition: all 0.22s ease;
+  position: relative;
+}
+.role-card:hover {
+  border-color: var(--primary);
+  background: rgba(79,99,231,0.04);
+}
+.role-card.active {
+  border-color: var(--primary);
+  background: rgba(79,99,231,0.06);
+  box-shadow: 0 0 0 3px rgba(79,99,231,0.10);
+}
+.role-icon {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: rgba(79,99,231,0.10);
+  color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.role-icon--worker {
+  background: rgba(231,166,59,0.12);
+  color: var(--accent);
+}
+.role-card.active .role-icon { background: var(--primary); color: #fff; }
+.role-card.active .role-icon--worker { background: var(--accent); color: #fff; }
+.role-info { flex: 1; overflow: hidden; }
+.role-title { display: block; font-size: 12.5px; font-weight: 600; color: var(--text-primary); }
+.role-desc  { display: block; font-size: 10.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.role-check {
+  font-size: 13px; color: var(--primary); opacity: 0;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+.role-card.active .role-check { opacity: 1; }
+
 /* ---- Shake (invalid submit) ---- */
 .shake { animation: shake 0.4s ease; }
 @keyframes shake {

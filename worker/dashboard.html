@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worker Dashboard — AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/factory-bg.css">
+<link rel="stylesheet" href="../css/worker.css">
+</head>
+<body class="factory-bg-worker">
+<div class="app-shell">
+
+  <!-- Worker Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text">
+        <strong>AI Garment MS</strong>
+        <span>Worker Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>My Work</span></div>
+      <a href="dashboard.html"          class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="tasks.html"              class="nav-link"><i class="fa-solid fa-list-check"></i><span>My Tasks</span></a>
+      <a href="production-update.html"  class="nav-link"><i class="fa-solid fa-plus-circle"></i><span>Production Update</span></a>
+      <div class="nav-section-label"><span>Earnings</span></div>
+      <a href="earnings.html"           class="nav-link"><i class="fa-solid fa-coins"></i><span>My Earnings</span></a>
+      <div class="nav-section-label"><span>Info</span></div>
+      <a href="instructions.html"       class="nav-link"><i class="fa-solid fa-clipboard-list"></i><span>Instructions</span></a>
+      <a href="history.html"            class="nav-link"><i class="fa-solid fa-clock-rotate-left"></i><span>Production History</span></a>
+      <a href="profile.html"            class="nav-link"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" id="workerLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Dashboard</h1>
+          <p id="todayDate"></p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="darkModeToggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" id="workerAvatar">P</div>
+          <div>
+            <span class="u-name" id="workerName">Worker</span>
+            <span class="u-role">Production Worker</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <!-- Greeting -->
+      <div class="worker-greeting">
+        <div>
+          <h2>Good <span id="timeGreeting">morning</span>, <span id="workerGreetName">Priya</span> 👋</h2>
+          <p>Here is your production progress for today.</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+          <span class="status-badge status-badge--on-track" id="overallStatus">
+            <span class="status-dot"></span> On Track
+          </span>
+          <button class="btn-update" id="openUpdateModal">
+            <i class="fa-solid fa-plus"></i> Update Production
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary stat cards -->
+      <div class="worker-stat-grid">
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Today's Target</span>
+            <div class="worker-stat-icon" style="background:rgba(74,95,217,0.10);color:var(--indigo-600);">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+          </div>
+          <div class="worker-stat-value accent" id="statTarget">150</div>
+          <div style="font-size:11px;color:var(--text-secondary);">pieces</div>
+        </div>
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Completed</span>
+            <div class="worker-stat-icon" style="background:rgba(47,191,113,0.10);color:var(--success);">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+          </div>
+          <div class="worker-stat-value success" id="statCompleted">112</div>
+          <div style="font-size:11px;color:var(--text-secondary);">pieces done</div>
+        </div>
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Remaining</span>
+            <div class="worker-stat-icon" style="background:rgba(244,183,64,0.10);color:var(--amber-500);">
+              <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+          </div>
+          <div class="worker-stat-value warning" id="statRemaining">38</div>
+          <div style="font-size:11px;color:var(--text-secondary);">pieces left</div>
+        </div>
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Today's Earnings</span>
+            <div class="worker-stat-icon" style="background:rgba(232,163,61,0.10);color:var(--amber-500);">
+              <i class="fa-solid fa-coins"></i>
+            </div>
+          </div>
+          <div class="worker-stat-value" id="statEarnings" style="color:var(--amber-500);">₹1,680</div>
+          <div style="font-size:11px;color:var(--text-secondary);">earned today</div>
+        </div>
+      </div>
+
+      <!-- Main two-column -->
+      <div class="worker-columns">
+
+        <!-- Current Assignment -->
+        <div class="assignment-card">
+          <div class="assignment-card-title"><i class="fa-solid fa-clipboard-check" style="margin-right:6px;"></i>CURRENT ASSIGNMENT</div>
+          <div class="assignment-order-num" id="assignOrderNum">Order #1042</div>
+          <div class="assignment-product" id="assignProduct">Men's Cotton Shirt</div>
+
+          <div class="assignment-meta-grid">
+            <div class="assignment-meta-item"><label>Stage</label><span id="assignStage">Stitching</span></div>
+            <div class="assignment-meta-item"><label>Priority</label><span id="assignPriority">High</span></div>
+            <div class="assignment-meta-item"><label>Target</label><span id="assignTarget">150 pieces</span></div>
+            <div class="assignment-meta-item"><label>Deadline</label><span id="assignDeadline">Today, 6:00 PM</span></div>
+          </div>
+
+          <div class="progress-section">
+            <div class="progress-header">
+              <span class="progress-label" id="assignCompleted">112 / 150 completed</span>
+              <span class="progress-pct" id="assignPct">74.6%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="assignBar" style="width:74.6%"></div>
+            </div>
+            <div class="progress-details">
+              <div class="progress-detail-item">
+                <span>Target</span><span id="detailTarget">150</span>
+              </div>
+              <div class="progress-detail-item">
+                <span>Completed</span><span id="detailCompleted">112</span>
+              </div>
+              <div class="progress-detail-item">
+                <span>Remaining</span><span id="detailRemaining">38</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <button class="btn-update" id="openUpdateModal2">
+              <i class="fa-solid fa-plus"></i> Update Production
+            </button>
+            <button class="btn-voice" id="openVoiceModal">
+              <i class="fa-solid fa-microphone"></i> Voice Update
+            </button>
+          </div>
+        </div>
+
+        <!-- Right column: earnings + instruction -->
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <!-- Earnings summary -->
+          <div class="earnings-summary-card">
+            <div class="card-section-title"><i class="fa-solid fa-coins"></i> My Earnings</div>
+            <div class="earnings-row">
+              <span class="earnings-row-label">Today</span>
+              <span class="earnings-row-val today" id="earToday">₹1,680</span>
+            </div>
+            <div class="earnings-row">
+              <span class="earnings-row-label">This Week</span>
+              <span class="earnings-row-val">₹8,450</span>
+            </div>
+            <div class="earnings-row">
+              <span class="earnings-row-label">This Month</span>
+              <span class="earnings-row-val">₹31,200</span>
+            </div>
+            <div class="earnings-row">
+              <span class="earnings-row-label">Pending</span>
+              <span class="earnings-row-val pending">₹4,500</span>
+            </div>
+            <div style="margin-top:14px;">
+              <a href="earnings.html" class="btn-listen"><i class="fa-solid fa-arrow-right"></i> View Details</a>
+            </div>
+          </div>
+
+          <!-- Today's instruction -->
+          <div class="instruction-card">
+            <div class="card-section-title"><i class="fa-solid fa-clipboard-list"></i> Today's Instruction</div>
+            <span class="instruction-priority high"><i class="fa-solid fa-circle-exclamation"></i> High Priority</span>
+            <div class="instruction-text">
+              Complete stitching for <strong>150 pieces</strong> of Men's Cotton Shirt for Order #1042 before 6:00 PM today.
+            </div>
+            <div class="instruction-meta">
+              <i class="fa-solid fa-clock" style="margin-right:4px;color:var(--indigo-500);"></i>Deadline: Today, 6:00 PM
+            </div>
+            <div class="action-row">
+              <button class="btn-listen" id="listenInstruction"><i class="fa-solid fa-volume-high"></i> Listen</button>
+              <a href="instructions.html" class="btn-listen"><i class="fa-solid fa-arrow-right"></i> All Instructions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Production History -->
+      <div class="history-section">
+        <div class="section-head">
+          <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--indigo-500);margin-right:8px;"></i>Recent Production History</h3>
+          <a href="history.html" class="link-view-all">View all <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Order</th><th>Stage</th>
+                <th>Quantity</th><th>Earnings</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Production Update Modal -->
+<div class="wk-modal-backdrop" id="updateModal">
+  <div class="wk-modal">
+    <h3><i class="fa-solid fa-plus-circle" style="color:var(--indigo-500);margin-right:8px;"></i>Production Update</h3>
+    <div class="form-group">
+      <label>Order</label>
+      <input type="text" id="modalOrder" value="Order #1042" readonly>
+    </div>
+    <div class="form-group">
+      <label>Stage</label>
+      <input type="text" id="modalStage" value="Stitching" readonly>
+    </div>
+    <div class="form-group">
+      <label>Quantity Completed (additional)</label>
+      <input type="number" id="modalQty" placeholder="e.g. 20" min="1">
+    </div>
+    <div class="form-group">
+      <label>Date</label>
+      <input type="text" id="modalDate" readonly>
+    </div>
+    <div class="form-group">
+      <label>Notes (optional)</label>
+      <textarea id="modalNotes" placeholder="Any notes…"></textarea>
+    </div>
+    <div class="wk-modal-footer">
+      <button class="btn-cancel" id="closeUpdateModal">Cancel</button>
+      <button class="btn-update" id="submitUpdate"><i class="fa-solid fa-check"></i> Submit Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- Voice Update Modal -->
+<div class="wk-modal-backdrop" id="voiceModal">
+  <div class="wk-modal">
+    <h3><i class="fa-solid fa-microphone" style="color:var(--amber-500);margin-right:8px;"></i>Voice Production Update</h3>
+    <p class="voice-panel-sub">Speak your update. Example: "Today I completed 30 shirts"</p>
+
+    <div class="voice-waveform" id="voiceWaveform">
+      <div class="bar" style="height:8px;"></div>
+      <div class="bar" style="height:14px;"></div>
+      <div class="bar" style="height:20px;"></div>
+      <div class="bar" style="height:12px;"></div>
+      <div class="bar" style="height:24px;"></div>
+      <div class="bar" style="height:10px;"></div>
+      <div class="bar" style="height:16px;"></div>
+    </div>
+
+    <button class="btn-voice" id="startVoiceBtn" style="width:100%;justify-content:center;margin-bottom:14px;">
+      <i class="fa-solid fa-microphone"></i> <span id="voiceBtnText">Start Recording</span>
+    </button>
+
+    <div class="voice-transcript-box" id="voiceTranscript">
+      Transcription will appear here…
+    </div>
+
+    <div class="voice-detected" id="voiceDetected" style="display:none;">
+      <div class="voice-chip"><i class="fa-solid fa-hashtag"></i> Order: <strong id="detectedOrder">—</strong></div>
+      <div class="voice-chip"><i class="fa-solid fa-boxes-stacked"></i> Qty: <strong id="detectedQty">—</strong></div>
+      <div class="voice-chip"><i class="fa-solid fa-layer-group"></i> Stage: <strong id="detectedStage">—</strong></div>
+    </div>
+
+    <div class="wk-modal-footer">
+      <button class="btn-cancel" id="closeVoiceModal">Cancel</button>
+      <button class="btn-update" id="confirmVoice" style="display:none;">
+        <i class="fa-solid fa-check"></i> Confirm Update
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/worker-dashboard.js"></script>
+</body>
+</html>

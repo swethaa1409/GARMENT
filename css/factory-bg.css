@@ -1,0 +1,261 @@
+/* ==========================================================================
+   AI Garment Management System — Factory Background Integration
+   Shared by Administrator Dashboard AND Worker Portal.
+   Load this AFTER layout.css and before any page-specific stylesheet.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1.  Full-viewport factory background on the <body>
+   -------------------------------------------------------------------------- */
+
+body.factory-bg {
+  background-color: #0B1020;                    /* fallback while image loads  */
+  background-image:
+    linear-gradient(
+      160deg,
+      rgba(8, 14, 34, 0.62) 0%,
+      rgba(8, 14, 34, 0.42) 50%,
+      rgba(8, 14, 34, 0.58) 100%
+    ),
+    url('../assets/garment-factory-bg.jpg');
+  background-size:     cover;
+  background-position: center center;
+  background-repeat:   no-repeat;
+  background-attachment: fixed;
+}
+
+/* Worker pages — the CSS file is still served from /css/ so path is identical */
+body.factory-bg-worker {
+  background-color: #0B1020;
+  background-image:
+    linear-gradient(
+      160deg,
+      rgba(8, 14, 34, 0.62) 0%,
+      rgba(8, 14, 34, 0.42) 50%,
+      rgba(8, 14, 34, 0.58) 100%
+    ),
+    url('../assets/garment-factory-bg.jpg');
+  background-size:     cover;
+  background-position: center center;
+  background-repeat:   no-repeat;
+  background-attachment: fixed;
+}
+
+/* --------------------------------------------------------------------------
+   2.  App shell — transparent so background shows through
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .app-shell,
+body.factory-bg-worker .app-shell {
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   3.  Sidebar — deep navy with strong contrast, subtle blur
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .sidebar,
+body.factory-bg-worker .sidebar {
+  background: rgba(8, 16, 38, 0.94) !important;
+  backdrop-filter:         blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* --------------------------------------------------------------------------
+   4.  Topbar — frosted glass
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .topbar,
+body.factory-bg-worker .topbar {
+  background:              rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter:         blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.08);
+}
+
+/* Dark mode topbar */
+[data-theme="dark"] body.factory-bg .topbar,
+[data-theme="dark"] body.factory-bg-worker .topbar {
+  background:              rgba(10, 15, 35, 0.86) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   5.  Cards — premium glassmorphism
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .card,
+body.factory-bg-worker .card,
+body.factory-bg-worker .worker-stat-card,
+body.factory-bg-worker .assignment-card,
+body.factory-bg-worker .earnings-summary-card,
+body.factory-bg-worker .instruction-card,
+body.factory-bg-worker .history-section,
+body.factory-bg-worker .voice-panel,
+body.factory-bg-worker .earnings-big-card,
+body.factory-bg-worker .profile-card,
+body.factory-bg-worker .task-card {
+  background:              rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter:         blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.60) !important;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Dark mode cards */
+[data-theme="dark"] body.factory-bg .card,
+[data-theme="dark"] body.factory-bg-worker .card,
+[data-theme="dark"] body.factory-bg-worker .worker-stat-card,
+[data-theme="dark"] body.factory-bg-worker .assignment-card,
+[data-theme="dark"] body.factory-bg-worker .earnings-summary-card,
+[data-theme="dark"] body.factory-bg-worker .instruction-card,
+[data-theme="dark"] body.factory-bg-worker .history-section,
+[data-theme="dark"] body.factory-bg-worker .voice-panel,
+[data-theme="dark"] body.factory-bg-worker .earnings-big-card,
+[data-theme="dark"] body.factory-bg-worker .profile-card,
+[data-theme="dark"] body.factory-bg-worker .task-card {
+  background:              rgba(10, 16, 40, 0.82) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.32) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6.  Welcome / Greeting banner
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .welcome-banner,
+body.factory-bg-worker .worker-greeting {
+  background:              rgba(255, 255, 255, 0.86) !important;
+  backdrop-filter:         blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.60) !important;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.10);
+}
+
+[data-theme="dark"] body.factory-bg .welcome-banner,
+[data-theme="dark"] body.factory-bg-worker .worker-greeting {
+  background: rgba(10, 16, 40, 0.84) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* --------------------------------------------------------------------------
+   7.  Data tables — keep readable on glass
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .table-wrap,
+body.factory-bg-worker .table-wrap {
+  background: transparent;
+}
+
+body.factory-bg .data-table,
+body.factory-bg-worker .data-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+body.factory-bg .data-table thead tr,
+body.factory-bg-worker .data-table thead tr {
+  background: rgba(74, 95, 217, 0.08);
+}
+
+body.factory-bg .data-table tr:hover,
+body.factory-bg-worker .data-table tr:hover {
+  background: rgba(74, 95, 217, 0.05);
+}
+
+/* --------------------------------------------------------------------------
+   8.  Icon buttons (topbar) — solid white so readable on glass topbar
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .icon-btn,
+body.factory-bg-worker .icon-btn {
+  background:  rgba(255, 255, 255, 0.95);
+  border-color: rgba(74, 95, 217, 0.15);
+}
+
+[data-theme="dark"] body.factory-bg .icon-btn,
+[data-theme="dark"] body.factory-bg-worker .icon-btn {
+  background:  rgba(23, 31, 56, 0.85);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* --------------------------------------------------------------------------
+   9.  User chip — visible on glass topbar
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .user-chip,
+body.factory-bg-worker .user-chip {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(74, 95, 217, 0.12);
+}
+
+[data-theme="dark"] body.factory-bg .user-chip,
+[data-theme="dark"] body.factory-bg-worker .user-chip {
+  background: rgba(23, 31, 56, 0.85);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+/* --------------------------------------------------------------------------
+   10.  Main content area — transparent so bg is visible between cards
+   -------------------------------------------------------------------------- */
+
+body.factory-bg .main-content,
+body.factory-bg-worker .main-content {
+  background: transparent;
+}
+
+body.factory-bg .content-body,
+body.factory-bg-worker .content-body {
+  background: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   11.  Modal overlays — keep clear contrast
+   -------------------------------------------------------------------------- */
+
+body.factory-bg-worker .wk-modal,
+body.factory-bg .modal-box {
+  background: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+[data-theme="dark"] body.factory-bg-worker .wk-modal {
+  background: rgba(12, 18, 44, 0.97) !important;
+}
+
+/* --------------------------------------------------------------------------
+   12.  Section labels / dividers inside content body
+   -------------------------------------------------------------------------- */
+
+body.factory-bg-worker .nav-section-label,
+body.factory-bg .nav-section-label {
+  /* keep sidebar section labels — already inside dark sidebar, fine */
+}
+
+/* --------------------------------------------------------------------------
+   13.  Responsive — ensure bg stays visible & no overflow
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  body.factory-bg,
+  body.factory-bg-worker {
+    background-attachment: scroll; /* fixed can cause issues on mobile */
+    background-position: center top;
+  }
+
+  body.factory-bg .content-body,
+  body.factory-bg-worker .content-body {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 500px) {
+  body.factory-bg,
+  body.factory-bg-worker {
+    background-position: 60% center;   /* keep workers visible on portrait */
+  }
+}

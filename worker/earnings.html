@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Earnings — Worker Portal | AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/factory-bg.css">
+<link rel="stylesheet" href="../css/worker.css">
+</head>
+<body class="factory-bg-worker">
+<div class="app-shell">
+
+  <!-- Worker Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text">
+        <strong>AI Garment MS</strong>
+        <span>Worker Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>My Work</span></div>
+      <a href="dashboard.html"          class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="tasks.html"              class="nav-link"><i class="fa-solid fa-list-check"></i><span>My Tasks</span></a>
+      <a href="production-update.html"  class="nav-link"><i class="fa-solid fa-plus-circle"></i><span>Production Update</span></a>
+      <div class="nav-section-label"><span>Earnings</span></div>
+      <a href="earnings.html"           class="nav-link active"><i class="fa-solid fa-coins"></i><span>My Earnings</span></a>
+      <div class="nav-section-label"><span>Info</span></div>
+      <a href="instructions.html"       class="nav-link"><i class="fa-solid fa-clipboard-list"></i><span>Instructions</span></a>
+      <a href="history.html"            class="nav-link"><i class="fa-solid fa-clock-rotate-left"></i><span>Production History</span></a>
+      <a href="profile.html"            class="nav-link"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" id="workerLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>My Earnings & Payments</h1>
+          <p>Track your piece-rate production earnings, payouts and payment history</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="darkModeToggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" id="workerAvatar">P</div>
+          <div>
+            <span class="u-name" id="workerName">Priya Kumar</span>
+            <span class="u-role">Production Worker</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <!-- 4 Big Earnings Cards -->
+      <div class="earnings-page-grid">
+        <div class="earnings-big-card">
+          <div class="earnings-big-label">Today's Earnings</div>
+          <div class="earnings-big-val today" id="earnToday">₹1,680</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:6px;">Current day production</div>
+        </div>
+        <div class="earnings-big-card">
+          <div class="earnings-big-label">This Week</div>
+          <div class="earnings-big-val week" id="earnWeek">₹8,450</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:6px;">Mon – Sat earnings</div>
+        </div>
+        <div class="earnings-big-card">
+          <div class="earnings-big-label">This Month</div>
+          <div class="earnings-big-val" id="earnMonth">₹31,200</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:6px;">Total monthly accumulated</div>
+        </div>
+        <div class="earnings-big-card">
+          <div class="earnings-big-label">Pending Payment</div>
+          <div class="earnings-big-val pending" id="earnPending">₹4,500</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:6px;">Payable this Friday</div>
+        </div>
+      </div>
+
+      <!-- Current Active Order Payment Detail Card -->
+      <div class="assignment-card" style="margin-bottom:24px;">
+        <div class="assignment-card-title"><i class="fa-solid fa-receipt" style="margin-right:6px;"></i>CURRENT ORDER PAYMENT DETAILS</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div style="font-size:18px;font-weight:700;" id="earnCurOrder">Order #1042 — Men's Cotton Shirt</div>
+            <div style="font-size:13px;color:var(--text-secondary);margin-top:4px;" id="earnCurCalc">
+              112 pieces × ₹15 = <strong style="color:var(--amber-500);font-size:15px;">₹1,680</strong>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="status-badge status-badge--attention" id="earnCurStatus">
+              <span class="status-dot"></span> Pending Approval
+            </span>
+            <a href="production-update.html" class="btn-update" style="padding:9px 18px;font-size:13px;">
+              <i class="fa-solid fa-plus"></i> Add Pieces
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment History Table -->
+      <div class="history-section">
+        <div class="section-head">
+          <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--indigo-500);margin-right:8px;"></i>Payment History</h3>
+          <span style="font-size:12px;color:var(--text-secondary);"><i class="fa-solid fa-shield-halved" style="color:var(--success);margin-right:4px;"></i>Verified piece-rate logs</span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Order</th>
+                <th>Product</th>
+                <th>Pieces</th>
+                <th>Rate</th>
+                <th>Amount</th>
+                <th>Payment Status</th>
+              </tr>
+            </thead>
+            <tbody id="paymentHistoryBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/worker-earnings.js"></script>
+</body>
+</html>

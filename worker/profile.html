@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worker Profile — Worker Portal | AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/factory-bg.css">
+<link rel="stylesheet" href="../css/worker.css">
+</head>
+<body class="factory-bg-worker">
+<div class="app-shell">
+
+  <!-- Worker Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text">
+        <strong>AI Garment MS</strong>
+        <span>Worker Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>My Work</span></div>
+      <a href="dashboard.html"          class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="tasks.html"              class="nav-link"><i class="fa-solid fa-list-check"></i><span>My Tasks</span></a>
+      <a href="production-update.html"  class="nav-link"><i class="fa-solid fa-plus-circle"></i><span>Production Update</span></a>
+      <div class="nav-section-label"><span>Earnings</span></div>
+      <a href="earnings.html"           class="nav-link"><i class="fa-solid fa-coins"></i><span>My Earnings</span></a>
+      <div class="nav-section-label"><span>Info</span></div>
+      <a href="instructions.html"       class="nav-link"><i class="fa-solid fa-clipboard-list"></i><span>Instructions</span></a>
+      <a href="history.html"            class="nav-link"><i class="fa-solid fa-clock-rotate-left"></i><span>Production History</span></a>
+      <a href="profile.html"            class="nav-link active"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" id="workerLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Worker Profile</h1>
+          <p>Personal details, assigned skills, piece-rate parameters and production station</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="darkModeToggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" id="workerAvatar">P</div>
+          <div>
+            <span class="u-name" id="workerName">Priya Kumar</span>
+            <span class="u-role">Production Worker</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+      <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:start;" class="worker-columns">
+
+        <!-- Left: Main Profile Card -->
+        <div class="profile-card" style="max-width:100%;">
+          <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;flex-wrap:wrap;">
+            <div class="profile-avatar" id="profAvatar">P</div>
+            <div>
+              <div class="profile-name" id="profName">Priya Kumar</div>
+              <div class="profile-id"><i class="fa-solid fa-id-badge" style="margin-right:6px;"></i><span id="profId">WRK-102</span></div>
+              <span class="status-badge status-badge--on-track" style="font-size:11px;padding:3px 10px;">
+                <span class="status-dot"></span> Active Floor Worker
+              </span>
+            </div>
+          </div>
+
+          <div class="profile-grid" style="margin-bottom:24px;">
+            <div class="profile-field">
+              <label>Full Name</label>
+              <span id="profFullName">Priya Kumar</span>
+            </div>
+            <div class="profile-field">
+              <label>Worker ID</label>
+              <span id="profIdVal">WRK-102</span>
+            </div>
+            <div class="profile-field">
+              <label>Phone Number</label>
+              <span id="profPhone">9876543210</span>
+            </div>
+            <div class="profile-field">
+              <label>Email Address</label>
+              <span id="profEmail">worker@agms.com</span>
+            </div>
+            <div class="profile-field">
+              <label>Primary Stage</label>
+              <span id="profStage" style="color:var(--indigo-600);font-weight:700;">Stitching</span>
+            </div>
+            <div class="profile-field">
+              <label>Production Rate</label>
+              <span id="profRate" style="color:var(--amber-500);font-weight:700;">₹15 / piece</span>
+            </div>
+            <div class="profile-field">
+              <label>Joining Date</label>
+              <span id="profJoined">05 Mar 2024</span>
+            </div>
+            <div class="profile-field">
+              <label>Department</label>
+              <span id="profDept">Stitching Unit</span>
+            </div>
+          </div>
+
+          <div style="margin-bottom:24px;">
+            <label style="display:block;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-secondary);margin-bottom:8px;">Verified Skills</label>
+            <div id="profSkills">
+              <span class="skill-tag"><i class="fa-solid fa-check" style="margin-right:4px;"></i>Stitching</span>
+              <span class="skill-tag"><i class="fa-solid fa-check" style="margin-right:4px;"></i>Quality Check</span>
+            </div>
+          </div>
+
+          <div style="background:rgba(23,31,56,0.03);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:16px;">
+            <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;"><i class="fa-solid fa-gears" style="color:var(--indigo-500);margin-right:6px;"></i>Workstation & Equipment</div>
+            <div style="font-size:13.5px;font-weight:600;">Juki DDL-8700 Industrial Single Needle Lockstitch</div>
+            <div style="font-size:12px;color:var(--text-secondary);margin-top:2px;">Floor B • Line 2 • Station #04</div>
+          </div>
+        </div>
+
+        <!-- Right: Performance & Summary Stats -->
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div class="earnings-summary-card">
+            <div class="card-section-title"><i class="fa-solid fa-chart-line"></i> Production Scorecard</div>
+            
+            <div class="earnings-row">
+              <span class="earnings-row-label">Today's Completed</span>
+              <span class="earnings-row-val today" id="profTodayPcs">112 pieces</span>
+            </div>
+            <div class="earnings-row">
+              <span class="earnings-row-label">Quality Pass Rate</span>
+              <span class="earnings-row-val" style="color:var(--success);">98.8%</span>
+            </div>
+            <div class="earnings-row">
+              <span class="earnings-row-label">Avg Daily Output</span>
+              <span class="earnings-row-val">142 pcs/day</span>
+            </div>
+            <div class="earnings-row">
+              <span class="earnings-row-label">Piece Rate</span>
+              <span class="earnings-row-val" style="color:var(--amber-500);" id="profRateCard">₹15 / pc</span>
+            </div>
+          </div>
+
+          <div class="instruction-card">
+            <div class="card-section-title"><i class="fa-solid fa-shield-halved"></i> Safety & Compliance</div>
+            <div style="font-size:13px;line-height:1.6;color:var(--text-secondary);margin-bottom:12px;">
+              Worker safety protocol: Wear hair restraint, use needle finger guard at all times, and report maintenance alerts before shift end.
+            </div>
+            <span class="status-badge status-badge--done" style="font-size:11px;padding:3px 10px;">
+              <i class="fa-solid fa-check-double" style="margin-right:4px;"></i> Safety Briefing Completed
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/worker-profile.js"></script>
+</body>
+</html>

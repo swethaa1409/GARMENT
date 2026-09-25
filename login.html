@@ -105,6 +105,29 @@
   <div class="auth-panel">
     <div class="auth-card glass" id="authCard">
 
+      <!-- Role selector -->
+      <div class="role-selector">
+        <p class="role-selector-label">Choose your role</p>
+        <div class="role-cards">
+          <button class="role-card active" id="roleAdmin" data-role="admin" type="button">
+            <div class="role-icon"><i class="fa-solid fa-user-tie"></i></div>
+            <div class="role-info">
+              <span class="role-title">Administrator</span>
+              <span class="role-desc">Factory management &amp; control</span>
+            </div>
+            <i class="fa-solid fa-circle-check role-check"></i>
+          </button>
+          <button class="role-card" id="roleWorker" data-role="worker" type="button">
+            <div class="role-icon role-icon--worker"><i class="fa-solid fa-hard-hat"></i></div>
+            <div class="role-info">
+              <span class="role-title">Worker</span>
+              <span class="role-desc">Tasks &amp; production updates</span>
+            </div>
+            <i class="fa-solid fa-circle-check role-check"></i>
+          </button>
+        </div>
+      </div>
+
       <div class="auth-tabs">
         <button class="tab-btn active" data-tab="login" id="tabLoginBtn">Sign In</button>
         <button class="tab-btn" data-tab="register" id="tabRegisterBtn">Create Account</button>
@@ -146,7 +169,8 @@
           <i class="fa-solid fa-arrow-right"></i>
         </button>
 
-        <p class="switch-line">Don't have an account? <a href="#" data-switch="register">Create one</a></p>
+        <!-- Register tab hidden for worker role -->
+        <p class="switch-line" id="loginSwitchLine">Don't have an account? <a href="#" data-switch="register">Create one</a></p>
       </form>
 
       <!-- REGISTER FORM -->
@@ -205,7 +229,7 @@
     <!-- Demo credentials footer -->
     <div class="demo-footer">
       <i class="fa-solid fa-circle-info"></i>
-      <span>Demo access available &mdash; <strong>admin@agms.com</strong> / <strong>admin123</strong></span>
+      <span id="demoFooterText">Demo: <strong>admin@agms.com</strong> / <strong>admin123</strong> &nbsp;|&nbsp; Worker: <strong>worker@agms.com</strong> / <strong>worker123</strong></span>
     </div>
 
     <p class="footnote">Demo credentials — admin@agms.com / admin123</p>

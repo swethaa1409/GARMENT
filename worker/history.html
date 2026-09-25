@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production History — Worker Portal | AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/factory-bg.css">
+<link rel="stylesheet" href="../css/worker.css">
+</head>
+<body class="factory-bg-worker">
+<div class="app-shell">
+
+  <!-- Worker Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text">
+        <strong>AI Garment MS</strong>
+        <span>Worker Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>My Work</span></div>
+      <a href="dashboard.html"          class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="tasks.html"              class="nav-link"><i class="fa-solid fa-list-check"></i><span>My Tasks</span></a>
+      <a href="production-update.html"  class="nav-link"><i class="fa-solid fa-plus-circle"></i><span>Production Update</span></a>
+      <div class="nav-section-label"><span>Earnings</span></div>
+      <a href="earnings.html"           class="nav-link"><i class="fa-solid fa-coins"></i><span>My Earnings</span></a>
+      <div class="nav-section-label"><span>Info</span></div>
+      <a href="instructions.html"       class="nav-link"><i class="fa-solid fa-clipboard-list"></i><span>Instructions</span></a>
+      <a href="history.html"            class="nav-link active"><i class="fa-solid fa-clock-rotate-left"></i><span>Production History</span></a>
+      <a href="profile.html"            class="nav-link"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" id="workerLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Production History</h1>
+          <p>Complete historical log of your garment manufacturing updates and logged piece counts</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="darkModeToggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" id="workerAvatar">P</div>
+          <div>
+            <span class="u-name" id="workerName">Priya Kumar</span>
+            <span class="u-role">Production Worker</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <!-- Summary metrics row -->
+      <div class="worker-stat-grid" style="margin-bottom:20px;">
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Total Entries</span>
+            <div class="worker-stat-icon" style="background:rgba(74,95,217,0.10);color:var(--indigo-600);"><i class="fa-solid fa-file-lines"></i></div>
+          </div>
+          <div class="worker-stat-value accent" id="histStatEntries">0</div>
+          <div style="font-size:11px;color:var(--text-secondary);">recorded batches</div>
+        </div>
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Total Pieces</span>
+            <div class="worker-stat-icon" style="background:rgba(47,191,113,0.10);color:var(--success);"><i class="fa-solid fa-shirt"></i></div>
+          </div>
+          <div class="worker-stat-value success" id="histStatPieces">0</div>
+          <div style="font-size:11px;color:var(--text-secondary);">pieces produced</div>
+        </div>
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Total Logged</span>
+            <div class="worker-stat-icon" style="background:rgba(232,163,61,0.10);color:var(--amber-500);"><i class="fa-solid fa-coins"></i></div>
+          </div>
+          <div class="worker-stat-value" id="histStatEarnings" style="color:var(--amber-500);">₹0</div>
+          <div style="font-size:11px;color:var(--text-secondary);">cumulative earnings</div>
+        </div>
+        <div class="worker-stat-card">
+          <div class="worker-stat-top">
+            <span class="worker-stat-label">Quick Action</span>
+            <div class="worker-stat-icon" style="background:rgba(74,95,217,0.10);color:var(--indigo-600);"><i class="fa-solid fa-plus"></i></div>
+          </div>
+          <div style="margin-top:4px;">
+            <a href="production-update.html" class="btn-update" style="padding:8px 14px;font-size:13px;width:100%;justify-content:center;">
+              + New Update
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Search -->
+      <div style="display:flex;gap:12px;margin-bottom:18px;flex-wrap:wrap;align-items:center;background:var(--bg-surface);padding:14px 18px;border-radius:var(--radius-md);border:1px solid var(--border-soft);">
+        <div style="flex:1;min-width:200px;position:relative;">
+          <input type="text" id="histSearch" placeholder="Search by Order # or Product…" style="width:100%;padding:9px 12px;border:1.5px solid var(--border-soft);border-radius:var(--radius-sm);background:var(--bg-page);font-family:inherit;font-size:13px;color:var(--text-primary);">
+        </div>
+        <div style="min-width:140px;">
+          <select id="histStageFilter" style="width:100%;padding:9px 12px;border:1.5px solid var(--border-soft);border-radius:var(--radius-sm);background:var(--bg-page);font-family:inherit;font-size:13px;color:var(--text-primary);">
+            <option value="all">All Stages</option>
+            <option value="Stitching">Stitching</option>
+            <option value="Cutting">Cutting</option>
+            <option value="Packing">Packing</option>
+            <option value="Quality Check">Quality Check</option>
+          </select>
+        </div>
+        <div style="min-width:140px;">
+          <select id="histStatusFilter" style="width:100%;padding:9px 12px;border:1.5px solid var(--border-soft);border-radius:var(--radius-sm);background:var(--bg-page);font-family:inherit;font-size:13px;color:var(--text-primary);">
+            <option value="all">All Statuses</option>
+            <option value="Completed">Completed</option>
+            <option value="In Progress">In Progress</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- History Table -->
+      <div class="history-section">
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Order</th>
+                <th>Product</th>
+                <th>Stage</th>
+                <th>Quantity</th>
+                <th>Earnings</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="fullHistoryBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/worker-history.js"></script>
+</body>
+</html>

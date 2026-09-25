@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Production Update — Worker Portal | AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/factory-bg.css">
+<link rel="stylesheet" href="../css/worker.css">
+</head>
+<body class="factory-bg-worker">
+<div class="app-shell">
+
+  <!-- Worker Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text">
+        <strong>AI Garment MS</strong>
+        <span>Worker Portal</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>My Work</span></div>
+      <a href="dashboard.html"          class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="tasks.html"              class="nav-link"><i class="fa-solid fa-list-check"></i><span>My Tasks</span></a>
+      <a href="production-update.html"  class="nav-link active"><i class="fa-solid fa-plus-circle"></i><span>Production Update</span></a>
+      <div class="nav-section-label"><span>Earnings</span></div>
+      <a href="earnings.html"           class="nav-link"><i class="fa-solid fa-coins"></i><span>My Earnings</span></a>
+      <div class="nav-section-label"><span>Info</span></div>
+      <a href="instructions.html"       class="nav-link"><i class="fa-solid fa-clipboard-list"></i><span>Instructions</span></a>
+      <a href="history.html"            class="nav-link"><i class="fa-solid fa-clock-rotate-left"></i><span>Production History</span></a>
+      <a href="profile.html"            class="nav-link"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" id="workerLogout"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>Production Update</h1>
+          <p>Submit completed garment quantities via manual entry or hands-free voice update</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="darkModeToggle" title="Toggle theme"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" id="workerAvatar">P</div>
+          <div>
+            <span class="u-name" id="workerName">Priya Kumar</span>
+            <span class="u-role">Production Worker</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+
+      <!-- Two-column: Manual Form & Voice Panel -->
+      <div class="worker-columns">
+
+        <!-- Column 1: Manual Production Update Form -->
+        <div class="assignment-card">
+          <div class="assignment-card-title"><i class="fa-solid fa-clipboard-check" style="margin-right:6px;"></i>MANUAL PRODUCTION ENTRY</div>
+          
+          <form id="prodUpdateForm" onsubmit="return false;">
+            <div class="form-group" style="margin-bottom:18px;">
+              <label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">Select Assigned Order</label>
+              <select id="puOrderSelect" style="width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border-soft);background:var(--bg-page);font-family:inherit;font-size:13.5px;color:var(--text-primary);"></select>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;">
+              <div class="form-group">
+                <label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">Stage</label>
+                <input type="text" id="puStage" readonly style="width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border-soft);background:var(--bg-page);font-family:inherit;font-size:13.5px;color:var(--text-primary);">
+              </div>
+              <div class="form-group">
+                <label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">Date</label>
+                <input type="text" id="puDate" readonly style="width:100%;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border-soft);background:var(--bg-page);font-family:inherit;font-size:13.5px;color:var(--text-primary);">
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:18px;">
+              <label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">Quantity Completed Today (Pieces)</label>
+              <input type="number" id="puQty" min="1" placeholder="e.g. 25" style="width:100%;padding:12px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border-soft);background:var(--bg-page);font-family:inherit;font-size:16px;font-weight:600;color:var(--text-primary);">
+            </div>
+
+            <!-- Real-time calculation preview -->
+            <div id="puCalcBox" style="background:rgba(74,95,217,0.06);border:1px solid rgba(74,95,217,0.15);border-radius:var(--radius-md);padding:14px 18px;margin-bottom:18px;display:none;">
+              <div style="font-size:12px;font-weight:600;color:var(--indigo-600);margin-bottom:6px;"><i class="fa-solid fa-calculator" style="margin-right:6px;"></i>Update Impact Preview</div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
+                <span>Estimated Earnings:</span>
+                <strong style="color:var(--amber-500);" id="puEstEarnings">+₹0</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:13px;">
+                <span>New Completed Total:</span>
+                <strong style="color:var(--success);" id="puNewCompleted">0 / 0</strong>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:24px;">
+              <label style="display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:6px;">Notes (optional)</label>
+              <textarea id="puNotes" placeholder="e.g. Finished collar stitching, awaiting cuff bundle…" style="width:100%;min-height:70px;padding:11px 14px;border-radius:var(--radius-sm);border:1.5px solid var(--border-soft);background:var(--bg-page);font-family:inherit;font-size:13.5px;color:var(--text-primary);resize:vertical;"></textarea>
+            </div>
+
+            <div style="display:flex;gap:12px;justify-content:flex-end;">
+              <button type="button" class="btn-cancel" id="puResetBtn">Reset</button>
+              <button type="button" class="btn-update" id="puSubmitBtn"><i class="fa-solid fa-check"></i> Submit Update</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Column 2: Voice Update Studio -->
+        <div class="voice-panel">
+          <div class="voice-panel-title"><i class="fa-solid fa-microphone" style="color:var(--amber-500);margin-right:8px;"></i>Update by Voice</div>
+          <p class="voice-panel-sub">Speak naturally in Tamil or English to log your production without typing.</p>
+
+          <!-- Voice visualizer -->
+          <div class="voice-waveform" id="voiceWaveform">
+            <div class="bar" style="height:10px;"></div>
+            <div class="bar" style="height:18px;"></div>
+            <div class="bar" style="height:26px;"></div>
+            <div class="bar" style="height:14px;"></div>
+            <div class="bar" style="height:32px;"></div>
+            <div class="bar" style="height:12px;"></div>
+            <div class="bar" style="height:20px;"></div>
+          </div>
+
+          <button class="btn-voice" id="startVoiceBtn" style="width:100%;justify-content:center;margin-bottom:16px;">
+            <i class="fa-solid fa-microphone"></i> <span id="voiceBtnText">Start Speaking</span>
+          </button>
+
+          <!-- Quick click voice examples -->
+          <div style="margin-bottom:14px;">
+            <div style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-secondary);margin-bottom:6px;">Try an example prompt:</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <button type="button" class="voice-example-btn" data-text="இன்னைக்கு 150 shirts முடிச்சுட்டேன்" style="text-align:left;background:rgba(23,31,56,0.03);border:1px solid var(--border-soft);border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;color:var(--text-primary);">
+                🎙 "இன்னைக்கு 150 shirts முடிச்சுட்டேன்" (Tamil)
+              </button>
+              <button type="button" class="voice-example-btn" data-text="Today completed 38 shirts for stitching" style="text-align:left;background:rgba(23,31,56,0.03);border:1px solid var(--border-soft);border-radius:6px;padding:6px 10px;font-size:12px;cursor:pointer;color:var(--text-primary);">
+                🎙 "Today completed 38 shirts for stitching" (English)
+              </button>
+            </div>
+          </div>
+
+          <div class="voice-transcript-box" id="voiceTranscript">
+            Transcription will appear here…
+          </div>
+
+          <!-- Detected data structured card -->
+          <div id="voiceDetectedCard" style="display:none;background:var(--bg-page);border:1px solid var(--border-soft);border-radius:var(--radius-md);padding:14px;margin-bottom:16px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:var(--indigo-600);margin-bottom:10px;">
+              <i class="fa-solid fa-wand-magic-sparkles" style="margin-right:4px;"></i>AI Detected Parameters
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;">
+              <div><span style="color:var(--text-secondary);font-size:11px;display:block;">Product:</span><strong id="detProduct">Shirt</strong></div>
+              <div><span style="color:var(--text-secondary);font-size:11px;display:block;">Stage:</span><strong id="detStage">Stitching</strong></div>
+              <div><span style="color:var(--text-secondary);font-size:11px;display:block;">Quantity:</span><strong style="color:var(--indigo-600);" id="detQty">150 pieces</strong></div>
+              <div><span style="color:var(--text-secondary);font-size:11px;display:block;">Estimated Earnings:</span><strong style="color:var(--amber-500);" id="detEarnings">₹2,250</strong></div>
+            </div>
+          </div>
+
+          <button class="btn-update" id="confirmVoiceBtn" style="width:100%;justify-content:center;display:none;">
+            <i class="fa-solid fa-check"></i> Confirm Voice Update
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent Submissions History -->
+      <div class="history-section">
+        <div class="section-head">
+          <h3><i class="fa-solid fa-clock-rotate-left" style="color:var(--indigo-500);margin-right:8px;"></i>Recent Production Updates</h3>
+          <a href="history.html" class="link-view-all">View all history <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Date</th><th>Order</th><th>Stage</th>
+                <th>Quantity</th><th>Earnings</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="puHistoryBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/worker-production-update.js"></script>
+</body>
+</html>

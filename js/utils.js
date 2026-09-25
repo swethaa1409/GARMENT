@@ -9,8 +9,12 @@ const AGMS = (() => {
   const KEYS = {
     USERS: 'agms_users',
     SESSION: 'agms_session',
+    WORKER_SESSION: 'agms_worker_session',
     ORDERS: 'agms_orders',
     WORKERS: 'agms_workers',
+    WORKER_USERS: 'agms_worker_users',
+    WORKER_TASKS: 'agms_worker_tasks',
+    WORKER_HISTORY: 'agms_worker_history',
     PRODUCTION: 'agms_production',
     PAYMENTS: 'agms_payments',
     THEME: 'agms_theme',
@@ -88,7 +92,41 @@ const AGMS = (() => {
 
   /* ------------------------------- seeding ------------------------------- */
 
+  function seedWorkersIfNeeded() {
+    if (!read(KEYS.WORKER_USERS, null) || read(KEYS.WORKER_USERS, []).length === 0) {
+      write(KEYS.WORKER_USERS, [
+        { id: 'WRK-102', name: 'Priya Kumar',  email: 'worker@agms.com',  password: 'worker123', skills: ['Stitching', 'Quality Check'], primaryStage: 'Stitching', ratePerPiece: 15, phone: '9876543210', joined: '2024-03-05', department: 'Stitching' },
+        { id: 'WRK-103', name: 'Ravi Kumar',   email: 'ravi@agms.com',    password: 'ravi123',   skills: ['Stitching'],               primaryStage: 'Stitching', ratePerPiece: 15, phone: '9876501111', joined: '2024-02-10', department: 'Stitching' },
+        { id: 'WRK-104', name: 'Sunita Devi',  email: 'sunita@agms.com',  password: 'sunita123', skills: ['Packing'],                 primaryStage: 'Packing',   ratePerPiece: 12, phone: '9988776655', joined: '2024-04-12', department: 'Packing'  }
+      ]);
+    }
+
+    if (!read(KEYS.WORKER_TASKS, null) || read(KEYS.WORKER_TASKS, []).length === 0) {
+      write(KEYS.WORKER_TASKS, [
+        { workerId: 'WRK-102', orderId: 'ORD-1042', product: "Men's Cotton Shirt", stage: 'Stitching', target: 150, completed: 112, deadline: 'Today, 6:00 PM', priority: 'High',   status: 'On Track'        },
+        { workerId: 'WRK-102', orderId: 'ORD-1038', product: 'Denim Jacket',        stage: 'Stitching', target: 80,  completed: 0,   deadline: 'Tomorrow, 5 PM',  priority: 'Medium', status: 'Not Started'     },
+        { workerId: 'WRK-103', orderId: 'ORD-1041', product: 'Kids T-Shirt',        stage: 'Stitching', target: 200, completed: 180, deadline: 'Today, 4:00 PM',  priority: 'High',   status: 'Almost Done'     },
+        { workerId: 'WRK-104', orderId: 'ORD-1040', product: 'Linen Trousers',      stage: 'Packing',   target: 100, completed: 65,  deadline: 'Today, 7:00 PM',  priority: 'Medium', status: 'On Track'        }
+      ]);
+    }
+
+    if (!read(KEYS.WORKER_HISTORY, null) || read(KEYS.WORKER_HISTORY, []).length === 0) {
+      const today = new Date().toISOString().slice(0,10);
+      const yday  = new Date(Date.now() - 86400000).toISOString().slice(0,10);
+      const d2    = new Date(Date.now() - 2*86400000).toISOString().slice(0,10);
+      write(KEYS.WORKER_HISTORY, [
+        { id: 'H001', workerId: 'WRK-102', date: today, orderId: 'ORD-1042', product: "Men's Cotton Shirt", stage: 'Stitching', quantity: 112, earnings: 1680, status: 'In Progress' },
+        { id: 'H002', workerId: 'WRK-102', date: yday,  orderId: 'ORD-1038', product: 'Denim Jacket',        stage: 'Stitching', quantity: 145, earnings: 2175, status: 'Completed'  },
+        { id: 'H003', workerId: 'WRK-102', date: d2,    orderId: 'ORD-1035', product: 'Formal Shirt',         stage: 'Stitching', quantity: 130, earnings: 1950, status: 'Completed'  },
+        { id: 'H004', workerId: 'WRK-103', date: today, orderId: 'ORD-1041', product: 'Kids T-Shirt',         stage: 'Stitching', quantity: 180, earnings: 2700, status: 'In Progress' },
+        { id: 'H005', workerId: 'WRK-104', date: today, orderId: 'ORD-1040', product: 'Linen Trousers',       stage: 'Packing',   quantity: 65,  earnings: 780,  status: 'In Progress' }
+      ]);
+    }
+  }
+
   function seedIfNeeded() {
+    seedWorkersIfNeeded();
+
     if (read(KEYS.SEEDED, false)) return;
 
     if (!read(KEYS.USERS, null)) {
@@ -179,6 +217,85 @@ const AGMS = (() => {
         return null;
       }
       return s;
+    }
+  };
+
+  /* ----------------------------- worker auth ------------------------------ */
+
+  const workerAuth = {
+    getWorkerUsers() {
+      let users = read(KEYS.WORKER_USERS, []);
+      if (!users || users.length === 0) {
+        seedWorkersIfNeeded();
+        users = read(KEYS.WORKER_USERS, []);
+      }
+      return users;
+    },
+    findWorker(email) {
+      return this.getWorkerUsers().find(u => u.email.toLowerCase() === String(email).trim().toLowerCase());
+    },
+    login(email, password) {
+      const user = this.findWorker(email);
+      if (!user) return { ok: false, message: 'No worker account found with this email.' };
+      if (user.password !== password) return { ok: false, message: 'Incorrect password. Please try again.' };
+      write(KEYS.WORKER_SESSION, { id: user.id, name: user.name, email: user.email, role: 'worker', primaryStage: user.primaryStage, ratePerPiece: user.ratePerPiece, loginAt: new Date().toISOString() });
+      return { ok: true };
+    },
+    logout() { localStorage.removeItem(KEYS.WORKER_SESSION); },
+    getSession() { return read(KEYS.WORKER_SESSION, null); },
+    requireSession() {
+      const s = this.getSession();
+      if (!s) { window.location.href = '../login.html'; return null; }
+      return s;
+    },
+    getProfile(id) { return this.getWorkerUsers().find(u => u.id === id) || null; }
+  };
+
+  /* --------------------------- worker data collections ------------------- */
+
+  const workerTasks = {
+    all() {
+      let list = read(KEYS.WORKER_TASKS, []);
+      if (!list || list.length === 0) {
+        seedWorkersIfNeeded();
+        list = read(KEYS.WORKER_TASKS, []);
+      }
+      return list;
+    },
+    save(list) { write(KEYS.WORKER_TASKS, list); },
+    forWorker(id) { return this.all().filter(t => t.workerId === id); },
+    todayTask(id) { return this.forWorker(id).find(t => t.deadline.toLowerCase().includes('today')) || this.forWorker(id)[0] || null; },
+    updateCompleted(workerId, orderId, qty) {
+      const list = this.all().map(t => {
+        if (t.workerId === workerId && t.orderId === orderId) {
+          const completed = Math.min(t.target, t.completed + qty);
+          const remaining = t.target - completed;
+          const pct = Math.round((completed / t.target) * 100);
+          const status = completed >= t.target ? 'Completed' : pct >= 80 ? 'Almost Done' : 'On Track';
+          return { ...t, completed, remaining, status };
+        }
+        return t;
+      });
+      this.save(list);
+    }
+  };
+
+  const workerHistory = {
+    all() {
+      let list = read(KEYS.WORKER_HISTORY, []);
+      if (!list || list.length === 0) {
+        seedWorkersIfNeeded();
+        list = read(KEYS.WORKER_HISTORY, []);
+      }
+      return list;
+    },
+    save(list) { write(KEYS.WORKER_HISTORY, list); },
+    forWorker(id) { return this.all().filter(h => h.workerId === id); },
+    add(entry) {
+      const list = this.all();
+      const newId = 'H' + Date.now();
+      list.unshift({ id: newId, ...entry });
+      this.save(list);
     }
   };
 
@@ -310,6 +427,14 @@ const AGMS = (() => {
       const href = link.getAttribute('href');
       if (href === current) link.classList.add('active');
     });
+
+    // Theme initialization
+    theme.apply();
+    const darkBtn = document.getElementById('darkModeToggle');
+    if (darkBtn && !darkBtn.dataset.bound) {
+      darkBtn.dataset.bound = 'true';
+      darkBtn.addEventListener('click', () => theme.toggle());
+    }
   }
 
   function initTopbar() {
@@ -341,7 +466,7 @@ const AGMS = (() => {
 
   return {
     KEYS, read, write, uid, formatCurrency, formatDate, escapeHtml,
-    toast, confirmAction, seedIfNeeded, auth, orders, workers,
-    production, payments, theme, initSidebar, initTopbar, initPage
+    toast, confirmAction, seedIfNeeded, auth, workerAuth, orders, workers,
+    production, payments, workerTasks, workerHistory, theme, initSidebar, initTopbar, initPage
   };
 })();

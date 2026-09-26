@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Manager Assistant — AI Garment Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/factory-bg.css">
+<link rel="stylesheet" href="../css/assistant.css">
+</head>
+<body class="factory-bg">
+
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark"><i class="fa-solid fa-shirt"></i></div>
+      <div class="brand-text"><strong>AI Garment MS</strong><span>Production Suite</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-section-label"><span>Main</span></div>
+      <a href="../dashboard.html" class="nav-link"><i class="fa-solid fa-grip"></i><span>Dashboard</span></a>
+      <a href="../orders.html" class="nav-link"><i class="fa-solid fa-cart-shopping"></i><span>Orders</span></a>
+      <a href="../workers.html" class="nav-link"><i class="fa-solid fa-users"></i><span>Workers</span></a>
+      <a href="../production.html" class="nav-link"><i class="fa-solid fa-industry"></i><span>Production</span></a>
+      <a href="../payments.html" class="nav-link"><i class="fa-solid fa-money-check-dollar"></i><span>Payments</span></a>
+      <a href="../analytics.html" class="nav-link"><i class="fa-solid fa-chart-line"></i><span>AI Analytics</span></a>
+      <a href="assistant.html" class="nav-link active"><i class="fa-solid fa-robot"></i><span>AI Manager Assistant</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="#" class="nav-link" data-logout><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+        <button class="icon-btn" id="mobileMenuToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="page-heading">
+          <h1>AI Manager Assistant</h1>
+          <p>Factory Intelligence & Operational Decision Support</p>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="darkModeToggle" title="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
+        <div class="user-chip">
+          <div class="avatar" data-user-avatar>A</div>
+          <div>
+            <span class="u-name" data-user-name>Admin</span>
+            <span class="u-role">Administrator</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="content-body">
+      <div class="assistant-page-container">
+
+        <!-- Chat Container -->
+        <div class="chat-card">
+
+          <!-- Chat Header -->
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <div class="assistant-avatar-badge">
+                <i class="fa-solid fa-robot"></i>
+              </div>
+              <div class="assistant-details">
+                <h2>AI Manager Assistant</h2>
+                <div class="assistant-status-row">
+                  <span class="status-badge-pill demo-mode" id="statusIndicator">
+                    <span class="status-dot"></span>
+                    <span id="statusText">Offline / Demo</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="chat-header-actions">
+              <button class="btn-chat-action" id="clearChatBtn" title="Start a fresh conversation">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>New Chat</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Suggestion Chips Bar -->
+          <div class="quick-questions-panel">
+            <span class="quick-questions-label"><i class="fa-solid fa-bolt"></i> Quick Questions:</span>
+            <button class="quick-chip" data-question="Which orders are at risk?">
+              <i class="fa-solid fa-triangle-exclamation"></i> Which orders are at risk?
+            </button>
+            <button class="quick-chip" data-question="What's causing today's delays?">
+              <i class="fa-solid fa-clock-rotate-left"></i> What's causing today's delays?
+            </button>
+            <button class="quick-chip" data-question="How is production going today?">
+              <i class="fa-solid fa-chart-pie"></i> How is production going today?
+            </button>
+            <button class="quick-chip" data-question="Who is overloaded?">
+              <i class="fa-solid fa-user-gear"></i> Who is overloaded?
+            </button>
+            <button class="quick-chip" data-question="What payments are pending?">
+              <i class="fa-solid fa-money-bill-transfer"></i> What payments are pending?
+            </button>
+            <button class="quick-chip" data-question="How much profit am I making?">
+              <i class="fa-solid fa-sack-dollar"></i> How much profit am I making?
+            </button>
+            <button class="quick-chip" data-question="What should I prioritize?">
+              <i class="fa-solid fa-bullseye"></i> What should I prioritize?
+            </button>
+            <button class="quick-chip" data-question="Give me a production summary.">
+              <i class="fa-solid fa-file-lines"></i> Give me a production summary.
+            </button>
+          </div>
+
+          <!-- Messages Area -->
+          <div class="chat-messages-container" id="chatMessages">
+
+            <!-- Initial AI Welcome Message -->
+            <div class="message-row ai-row">
+              <div class="msg-avatar ai"><i class="fa-solid fa-robot"></i></div>
+              <div class="msg-bubble">
+                <p>Hello! I'm your <strong>AI Manager Assistant</strong>.</p>
+                <p>I can help you understand your production, orders, workers, payments, costs and delivery risks.</p>
+                <p>What would you like to know?</p>
+                <div class="meta-info">
+                  <span class="badge-source">Factory Assistant</span>
+                  <span class="msg-time" id="welcomeTime">Just now</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Typing indicator -->
+            <div class="typing-row" id="typingIndicator">
+              <div class="msg-avatar ai"><i class="fa-solid fa-robot"></i></div>
+              <div class="typing-bubble">
+                <div class="typing-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <span>AI Manager is analyzing your production data...</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Chat Input Bar -->
+          <form class="chat-input-bar" id="chatForm">
+            <div class="chat-input-wrapper">
+              <input type="text" class="chat-input" id="chatInput" placeholder="Ask about your factory..." autocomplete="off">
+            </div>
+            <button type="button" class="btn-voice" id="voiceBtn" title="Voice Input">
+              <i class="fa-solid fa-microphone"></i> <span>Voice</span>
+            </button>
+            <button type="submit" class="btn-send" id="sendBtn">
+              <span>Send</span> <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../js/utils.js"></script>
+<script src="../js/assistant.js"></script>
+</body>
+</html>
